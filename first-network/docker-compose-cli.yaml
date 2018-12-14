@@ -24,15 +24,6 @@ services:
     container_name: orderer.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-    depends_on:
-      - splunk.example.com
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
@@ -41,15 +32,6 @@ services:
       service: peer0.org1.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-    depends_on:
-      - splunk.example.com
 
   peer1.org1.example.com:
     container_name: peer1.org1.example.com
@@ -58,15 +40,6 @@ services:
       service: peer1.org1.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-    depends_on:
-      - splunk.example.com
 
   peer0.org2.example.com:
     container_name: peer0.org2.example.com
@@ -75,15 +48,6 @@ services:
       service: peer0.org2.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-    depends_on:
-      - splunk.example.com
 
   peer1.org2.example.com:
     container_name: peer1.org2.example.com
@@ -92,15 +56,6 @@ services:
       service: peer1.org2.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-    depends_on:
-      - splunk.example.com
 
   cli:
     container_name: cli
@@ -134,26 +89,5 @@ services:
       - peer1.org1.example.com
       - peer0.org2.example.com
       - peer1.org2.example.com
-      - splunk.example.com
     networks:
       - byfn
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-
-  splunk.example.com:
-    container_name: splunk.example.com
-    image: splunk/splunk:latest
-    environment:
-      - SPLUNK_START_ARGS=--accept-license
-      - SPLUNK_PASSWORD=changeme
-      - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
-    networks:
-      - byfn
-    ports:
-    - "18000:8000"
-    - "18088:8088"
