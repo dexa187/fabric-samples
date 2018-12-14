@@ -1,0 +1,21 @@
+[indexes/hyperledger_metrics]
+owner = admin
+version = 7.2.1
+modtime = 1544812305.831900000
+
+[inputs/udp%3A%2F%2F8125]
+owner = admin
+version = 7.2.1
+modtime = 1544812311.058527000
+
+[indexes/hyperledger_logs]
+owner = admin
+version = 7.2.1
+modtime = 1544813255.780531000
+
+[inputs/http%3A%2F%2Fhyperledger_logs]
+access = read : [ admin ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.1
+modtime = 1544813285.050481000
