@@ -1,0 +1,5 @@
+[views/analysis_workspace]
+export = system
+
+[views/home]
+export = none
