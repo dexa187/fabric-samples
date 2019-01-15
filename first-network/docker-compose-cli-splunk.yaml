@@ -26,6 +26,7 @@ services:
       - ORDERER_METRICS_STATSD_NETWORK=udp
       - ORDERER_METRICS_STATSD_ADDRESS=splunk.example.com:8125
       - ORDERER_METRICS_STATSD_PREFIX=orderer.example.com
+      - FABRIC_LOGGING_FORMAT=json
     container_name: orderer.example.com
     networks:
       - byfn
@@ -37,6 +38,7 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
     depends_on:
       - splunk.example.com
 
@@ -50,6 +52,7 @@ services:
       - CORE_METRICS_STATSD_NETWORK=udp
       - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
       - CORE_METRICS_STATSD_PREFIX=peer0.org1.example.com
+      - FABRIC_LOGGING_FORMAT=json
     networks:
       - byfn
     logging:
@@ -60,6 +63,8 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
+
     depends_on:
       - splunk.example.com
 
@@ -73,6 +78,7 @@ services:
       - CORE_METRICS_STATSD_NETWORK=udp
       - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
       - CORE_METRICS_STATSD_PREFIX=peer1.org1.example.com
+      - FABRIC_LOGGING_FORMAT=json
     networks:
       - byfn
     logging:
@@ -83,6 +89,7 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
     depends_on:
       - splunk.example.com
 
@@ -96,6 +103,7 @@ services:
       - CORE_METRICS_STATSD_NETWORK=udp
       - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
       - CORE_METRICS_STATSD_PREFIX=peer0.org2.example.com
+      - FABRIC_LOGGING_FORMAT=json
     networks:
       - byfn
     logging:
@@ -106,6 +114,7 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
     depends_on:
       - splunk.example.com
 
@@ -119,6 +128,7 @@ services:
       - CORE_METRICS_STATSD_NETWORK=udp
       - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
       - CORE_METRICS_STATSD_PREFIX=peer1.org2.example.com
+      - FABRIC_LOGGING_FORMAT=json
     networks:
       - byfn
     logging:
@@ -129,6 +139,7 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
     depends_on:
       - splunk.example.com
 
@@ -142,6 +153,7 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       #- FABRIC_LOGGING_SPEC=DEBUG
       - FABRIC_LOGGING_SPEC=INFO
+      - FABRIC_LOGGING_FORMAT=json
       - CORE_PEER_ID=cli
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
@@ -179,6 +191,7 @@ services:
         splunk-insecureskipverify: "true"
         splunk-verify-connection: "false"
         splunk-format: "json"
+        tag: "{{.Name}}-{{.ID}}"
 
   splunk.example.com:
     container_name: splunk.example.com
