@@ -158,7 +158,13 @@ function networkUp() {
     generateChannelArtifacts
   fi
   if [ "$ANALYTICS_TYPE" == "splunk" ]; then
-    ANALYTICS_OPTION="-f $COMPOSE_FILE_SPLUNK"
+    ANALYTICS_OPTION="-f $COMPOSE_FILE_SPLUNK "
+    if [ "${IF_COUCHDB}" == "couchdb" ]; then
+      ANALYTICS_OPTION="$ANALYTICS_OPTION -f $COMPOSE_FILE_SPLUNK_COUCH "
+    fi
+    if [ "$CONSENSUS_TYPE" == "kafka" ]; then
+      ANALYTICS_OPTION="$ANALYTICS_OPTION -f $COMPOSE_FILE_SPLUNK_KAFKA "
+    fi
     echo "Analytics ENABLED "$ANALYTICS_TYPE
   else
     ANALYTICS_OPTION=""
@@ -167,7 +173,7 @@ function networkUp() {
     if [ "$CONSENSUS_TYPE" == "kafka" ]; then
       IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_COUCH $ANALYTICS_OPTION up -d 2>&1
     else
-      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH $ANALYTICS_OPTION up -d 2>&1
+      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE $ANALYTICS_OPTION -f $COMPOSE_FILE_COUCH up -d 2>&1
     fi
   else
     if [ "$CONSENSUS_TYPE" == "kafka" ]; then
@@ -491,8 +497,10 @@ COMPOSE_FILE_COUCH=docker-compose-couch.yaml
 COMPOSE_FILE_ORG3=docker-compose-org3.yaml
 # kafka and zookeeper compose file
 COMPOSE_FILE_KAFKA=docker-compose-kafka.yaml
-# splunk compose file
+# splunk compose files
 COMPOSE_FILE_SPLUNK=docker-compose-splunk.yaml
+COMPOSE_FILE_SPLUNK_COUCH=docker-compose-splunk-couch.yaml
+COMPOSE_FILE_SPLUNK_KAFKA=docker-compose-splunk-kafka.yaml
 # use golang as the default language for chaincode
 LANGUAGE=golang
 # default image tag
@@ -521,7 +529,7 @@ else
   exit 1
 fi
 
-while getopts "h?c:t:d:f:s:l:i:o:v:a" opt; do
+while getopts "h?c:t:d:f:s:l:i:o:v:a:" opt; do
   case "$opt" in
   h | \?)
     printHelp
@@ -555,7 +563,7 @@ while getopts "h?c:t:d:f:s:l:i:o:v:a" opt; do
     VERBOSE=true
     ;;
   a)
-    ANALYTICS_TYPE="splunk"
+    ANALYTICS_TYPE=$OPTARG
     ;;
   esac
 done

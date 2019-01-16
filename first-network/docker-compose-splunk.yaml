@@ -5,11 +5,30 @@
 
 version: '2'
 
+x-logging:
+  &default-logging
+  driver: "splunk"
+  options:
+    splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
+    splunk-url: "https://localhost:18088"
+    splunk-insecureskipverify: "true"
+    splunk-verify-connection: "false"
+    splunk-format: "json"
+    tag: "{{.Name}}-{{.ID}}"
+x-environment:
+  &default-environment
+  FABRIC_LOGGING_FORMAT: json
+  CORE_METRICS_PROVIDER: statsd
+  CORE_METRICS_STATSD_NETWORK: udp
+  CORE_METRICS_STATSD_ADDRESS: splunk.example.com:8125
+  ORDERER_METRICS_PROVIDER: statsd
+  ORDERER_METRICS_STATSD_NETWORK: udp
+  ORDERER_METRICS_STATSD_ADDRESS: splunk.example.com:8125
+
 networks:
   byfn:
 
 services:
-
   splunk.example.com:
     container_name: splunk.example.com
     image: splunk/splunk:latest
@@ -25,116 +44,49 @@ services:
     - "18088:8088"
 
   orderer.example.com:
-    environment:
-      - ORDERER_METRICS_PROVIDER=statsd
-      - ORDERER_METRICS_STATSD_NETWORK=udp
-      - ORDERER_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - ORDERER_METRICS_STATSD_PREFIX=orderer.example.com
-      - FABRIC_LOGGING_FORMAT=json
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
+    environment: 
+      <<: *default-environment
+      ORDERER_METRICS_STATSD_PREFIX: orderer.example.com
+    logging: *default-logging
     depends_on:
       - splunk.example.com
 
   peer0.org1.example.com:
-    environment:
-      - CORE_METRICS_PROVIDER=statsd
-      - CORE_METRICS_STATSD_NETWORK=udp
-      - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - CORE_METRICS_STATSD_PREFIX=peer0.org1.example.com
-      - FABRIC_LOGGING_FORMAT=json
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
-
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: peer0.org1.example.com
+    logging: *default-logging
     depends_on:
       - splunk.example.com
 
   peer1.org1.example.com:
-    environment:
-      - CORE_METRICS_PROVIDER=statsd
-      - CORE_METRICS_STATSD_NETWORK=udp
-      - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - CORE_METRICS_STATSD_PREFIX=peer1.org1.example.com
-      - FABRIC_LOGGING_FORMAT=json
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: peer1.org1.example.com
+    logging: *default-logging
     depends_on:
       - splunk.example.com
 
   peer0.org2.example.com:
-    environment:
-      - CORE_METRICS_PROVIDER=statsd
-      - CORE_METRICS_STATSD_NETWORK=udp
-      - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - CORE_METRICS_STATSD_PREFIX=peer0.org2.example.com
-      - FABRIC_LOGGING_FORMAT=json
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
+    environment : 
+      <<: *default-environment  
+      CORE_METRICS_STATSD_PREFIX: peer0.org2.example.com
+    logging: *default-logging
     depends_on:
       - splunk.example.com
 
   peer1.org2.example.com:
-    environment:
-      - CORE_METRICS_PROVIDER=statsd
-      - CORE_METRICS_STATSD_NETWORK=udp
-      - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - CORE_METRICS_STATSD_PREFIX=peer1.org2.example.com
-      - FABRIC_LOGGING_FORMAT=json
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
+    environment: 
+      <<: *default-environment  
+      CORE_METRICS_STATSD_PREFIX: peer1.org2.example.com
+    logging: *default-logging
     depends_on:
       - splunk.example.com
 
   cli:
-    environment:
-      - FABRIC_LOGGING_FORMAT=json
-      - CORE_METRICS_PROVIDER=statsd
-      - CORE_METRICS_STATSD_NETWORK=udp
-      - CORE_METRICS_STATSD_ADDRESS=splunk.example.com:8125
-      - CORE_METRICS_STATSD_PREFIX=cli
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: cli
+    logging: *default-logging
     depends_on:
       - splunk.example.com
-    logging:
-      driver: "splunk"
-      options:
-        splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
-        splunk-url: "https://localhost:18088"
-        splunk-insecureskipverify: "true"
-        splunk-verify-connection: "false"
-        splunk-format: "json"
-        tag: "{{.Name}}-{{.ID}}"
