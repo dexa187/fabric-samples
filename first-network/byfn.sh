@@ -50,6 +50,7 @@ function printHelp() {
   echo "    -l <language> - the chaincode language: golang (default) or node"
   echo "    -o <consensus-type> - the consensus-type of the ordering service: solo (default) or kafka"
   echo "    -i <imagetag> - the tag to be used to launch the network (defaults to \"latest\")"
+  echo "    -a <analytics-type> - the analytics to use: splunk"
   echo "    -v - verbose mode"
   echo "  byfn.sh -h (print this message)"
   echo
@@ -156,17 +157,23 @@ function networkUp() {
     replacePrivateKey
     generateChannelArtifacts
   fi
+  if [ "$ANALYTICS_TYPE" == "splunk" ]; then
+    ANALYTICS_OPTION="-f $COMPOSE_FILE_SPLUNK"
+    echo "Analytics ENABLED "$ANALYTICS_TYPE
+  else
+    ANALYTICS_OPTION=""
+  fi
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
     if [ "$CONSENSUS_TYPE" == "kafka" ]; then
-      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_COUCH up -d 2>&1
+      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_COUCH $ANALYTICS_OPTION up -d 2>&1
     else
-      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH up -d 2>&1
+      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH $ANALYTICS_OPTION up -d 2>&1
     fi
   else
     if [ "$CONSENSUS_TYPE" == "kafka" ]; then
-      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA up -d 2>&1
+      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA $ANALYTICS_OPTION up -d 2>&1
     else
-      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up -d 2>&1
+      IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE $ANALYTICS_OPTION up -d 2>&1
     fi
   fi
   if [ $? -ne 0 ]; then
@@ -484,7 +491,8 @@ COMPOSE_FILE_COUCH=docker-compose-couch.yaml
 COMPOSE_FILE_ORG3=docker-compose-org3.yaml
 # kafka and zookeeper compose file
 COMPOSE_FILE_KAFKA=docker-compose-kafka.yaml
-#
+# splunk compose file
+COMPOSE_FILE_SPLUNK=docker-compose-splunk.yaml
 # use golang as the default language for chaincode
 LANGUAGE=golang
 # default image tag
@@ -513,7 +521,7 @@ else
   exit 1
 fi
 
-while getopts "h?c:t:d:f:s:l:i:o:v" opt; do
+while getopts "h?c:t:d:f:s:l:i:o:v:a" opt; do
   case "$opt" in
   h | \?)
     printHelp
@@ -540,11 +548,14 @@ while getopts "h?c:t:d:f:s:l:i:o:v" opt; do
   i)
     IMAGETAG=$(go env GOARCH)"-"$OPTARG
     ;;
-   o)
+  o)
     CONSENSUS_TYPE=$OPTARG
     ;;
   v)
     VERBOSE=true
+    ;;
+  a)
+    ANALYTICS_TYPE="splunk"
     ;;
   esac
 done
