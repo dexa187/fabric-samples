@@ -41,3 +41,23 @@ services:
       - KAFKA_DEFAULT_REPLICATION_FACTOR=1
     networks:
     - byfn
+
+  kafka-connect.example.com:
+    container_name: kafka-connect.example.com
+    image: splunk/kafka-connect:$IMAGE_TAG
+    depends_on:
+    - kafka.example.com
+    environment:
+      - KAFKA_CONNECT_PLUGIN_PATH=/usr/local/share/java,/usr/local/share/kafka/plugins,/opt/connectors,
+      - KAFKA_CONNECT_KEY_CONVERTER=org.apache.kafka.connect.storage.StringConverter
+      - KAFKA_CONNECT_VALUE_CONVERTER=org.apache.kafka.connect.storage.StringConverter
+      - KAFKA_CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE=false
+      - KAFKA_CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE=false
+      - KAFKA_CONNECT_GROUP_ID=kafka-connect-splunk-hec-sink
+      - KAFKA_CONNECT_REST_PORT=8083
+      - KAFKA_CONNECT_REST_HOSTNAME=localhost
+      - KAFKA_CONNECT_BOOTSTRAP_SERVERS=kafka.example.com:9092
+    ports:
+    - "8083:8083"
+    networks:
+    - byfn
