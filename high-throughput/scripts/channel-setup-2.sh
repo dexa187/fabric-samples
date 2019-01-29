@@ -111,5 +111,5 @@ installChaincode "peer1.org2.example.com" "splunk_cc" "Org2MSP" 1.0
 # Instantiate chaincode on one ore more peers in each channel.
 instantiateChaincode "peer0.org2.example.com" "mychannel-one" "splunk_cc" "Org2MSP" 1.0
 instantiateChaincode "peer1.org2.example.com" "mychannel-two" "splunk_cc" "Org2MSP" 1.0
-instantiateChaincode "peer0.org1.example.com" "mychannel-three" "splunk_cc" "Org2MSP" 1.0
+instantiateChaincode "peer0.org1.example.com" "mychannel-three" "splunk_cc" "Org1MSP" 1.0
 
