@@ -1,0 +1,116 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.example.com:
+    container_name: orderer.example.com
+    image: hyperledger/fabric-orderer:$IMAGE_TAG
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+    - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ../crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
+    - ../crypto/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
+    - orderer.example.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  buttercup0.pony.example.com:
+    container_name: buttercup0.pony.example.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=buttercup0.pony.example.com
+      - CORE_PEER_ADDRESS=buttercup0.pony.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=buttercup1.pony.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=buttercup0.pony.example.com:7051
+      - CORE_PEER_LOCALMSPID=PonyMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/tls:/etc/hyperledger/fabric/tls
+        - buttercup0.pony.example.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+  buttercup1.pony.example.com:
+    container_name: buttercup1.pony.example.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=buttercup1.pony.example.com
+      - CORE_PEER_ADDRESS=buttercup1.pony.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=buttercup1.pony.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=buttercup0.pony.example.com:7051
+      - CORE_PEER_LOCALMSPID=PonyMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup1.pony.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup1.pony.example.com/tls:/etc/hyperledger/fabric/tls
+        - buttercup1.pony.example.com:/var/hyperledger/production
+
+    ports:
+      - 8051:7051
+      - 8053:7053
+
+  seabiscuit0.toby.example.com:
+    container_name: seabiscuit0.toby.example.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=seabiscuit0.toby.example.com
+      - CORE_PEER_ADDRESS=seabiscuit0.toby.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=seabiscuit0.toby.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=seabiscuit1.toby.example.com:7051
+      - CORE_PEER_LOCALMSPID=TobyMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit0.toby.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit0.toby.example.com/tls:/etc/hyperledger/fabric/tls
+        - seabiscuit0.toby.example.com:/var/hyperledger/production
+    ports:
+      - 9051:7051
+      - 9053:7053
+
+  seabiscuit1.toby.example.com:
+    container_name: seabiscuit1.toby.example.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=seabiscuit1.toby.example.com
+      - CORE_PEER_ADDRESS=seabiscuit1.toby.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=seabiscuit1.toby.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=seabiscuit0.toby.example.com:7051
+      - CORE_PEER_LOCALMSPID=TobyMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit1.toby.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit1.toby.example.com/tls:/etc/hyperledger/fabric/tls
+        - seabiscuit1.toby.example.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053

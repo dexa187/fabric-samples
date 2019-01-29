@@ -1,0 +1,92 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+x-logging:
+  &default-logging
+  driver: "splunk"
+  options:
+    splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
+    splunk-url: "https://localhost:18088"
+    splunk-insecureskipverify: "true"
+    splunk-verify-connection: "false"
+    splunk-format: "json"
+    tag: "{{.Name}}-{{.ID}}"
+    env: CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS
+x-environment:
+  &default-environment
+  FABRIC_LOGGING_FORMAT: json
+  CORE_METRICS_PROVIDER: statsd
+  CORE_METRICS_STATSD_NETWORK: udp
+  CORE_METRICS_STATSD_ADDRESS: splunk.example.com:8125
+  ORDERER_METRICS_PROVIDER: statsd
+  ORDERER_METRICS_STATSD_NETWORK: udp
+  ORDERER_METRICS_STATSD_ADDRESS: splunk.example.com:8125
+
+networks:
+  byfn:
+
+services:
+  splunk.example.com:
+    container_name: splunk.example.com
+    image: splunk/splunk:7.2.3
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=changeme
+      - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/HyperLedger-Splunk-SL.zip
+    networks:
+      - byfn
+    ports:
+    - "18000:8000"
+    - "18088:8088"
+
+  orderer.example.com:
+    environment: 
+      <<: *default-environment
+      ORDERER_METRICS_STATSD_PREFIX: orderer.example.com
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  buttercup0.pony.example.com:
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: buttercup0.pony.example.com
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  buttercup1.pony.example.com:
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: buttercup1.pony.example.com
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  seabiscuit0.toby.example.com:
+    environment : 
+      <<: *default-environment  
+      CORE_METRICS_STATSD_PREFIX: seabiscuit0.toby.example.com
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  seabiscuit1.toby.example.com:
+    environment: 
+      <<: *default-environment  
+      CORE_METRICS_STATSD_PREFIX: seabiscuit1.toby.example.com
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  cli:
+    environment: 
+      <<: *default-environment
+      CORE_METRICS_STATSD_PREFIX: cli
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com

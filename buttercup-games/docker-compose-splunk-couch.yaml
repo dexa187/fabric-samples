@@ -1,0 +1,41 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+x-logging:
+  &default-logging
+  driver: "splunk"
+  options:
+    splunk-token: "12345678-ABCD-EFGH-IJKL-123456789012"
+    splunk-url: "https://localhost:18088"
+    splunk-insecureskipverify: "true"
+    splunk-verify-connection: "false"
+    splunk-format: "json"
+    tag: "{{.Name}}-{{.ID}}"
+
+networks:
+  byfn:
+
+services:
+  couchdb0:
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  couchdb1:
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  couchdb2:
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
+
+  couchdb3:  
+    logging: *default-logging
+    depends_on:
+      - splunk.example.com
