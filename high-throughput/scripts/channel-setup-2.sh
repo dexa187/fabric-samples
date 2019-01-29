@@ -3,7 +3,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-set -x
+set -ex
+
+source ./setclienv.sh
 
 export FABRIC_CFG_PATH=${PWD}/config
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
@@ -91,12 +93,22 @@ function instantiateChaincode() {
 }
 
 
-# # Create any number of channels here with new names.
+# Create any number of channels here with new names.
 createChannel "mychannel-one"
 createChannel "mychannel-two"
 createChannel "mychannel-three"
 
 # Have any number of peers to join here. Third argument is Org1MSP or Org2MSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
+joinChannel "peer0.org1.example.com" "mychannel-one" "Org1MSP" 1
+joinChannel "peer1.org1.example.com" "mychannel-one" "Org1MSP" 0
+joinChannel "peer0.org2.example.com" "mychannel-one" "Org2MSP" 1
+joinChannel "peer1.org2.example.com" "mychannel-one" "Org2MSP" 0
+
+joinChannel "peer0.org1.example.com" "mychannel-two" "Org1MSP" 1
+joinChannel "peer1.org1.example.com" "mychannel-two" "Org1MSP" 0
+joinChannel "peer0.org2.example.com" "mychannel-two" "Org2MSP" 1
+joinChannel "peer1.org2.example.com" "mychannel-two" "Org2MSP" 0
+
 joinChannel "peer0.org1.example.com" "mychannel-three" "Org1MSP" 1
 joinChannel "peer1.org1.example.com" "mychannel-three" "Org1MSP" 0
 joinChannel "peer0.org2.example.com" "mychannel-three" "Org2MSP" 1
