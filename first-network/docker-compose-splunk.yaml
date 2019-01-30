@@ -41,8 +41,22 @@ services:
     ports:
       - "18000:8000"
       - "18088:8088"
+
+  cadivsor.example.com:
+    container_name: cadvisor.example.com
+    image: google/cadvisor:latest
     volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
       - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - --storage_driver=statsd
+      - --storage_driver_host=splunk.example.com:8125
+      - --docker_only=true
+    networks:
+      - byfn
+    user: root
 
   orderer.example.com:
     environment: 
