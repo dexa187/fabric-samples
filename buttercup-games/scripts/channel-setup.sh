@@ -92,12 +92,12 @@ function instantiateChaincode() {
 
 
 # Create any number of channels here with new names.
-# createChannel "kentucky-derby"
-# createChannel "preakness-stakes"
-# createChannel "belmont-stakes"
-# createChannel "melbourne-cup"
+createChannel "kentucky-derby"
+createChannel "preakness-stakes"
+createChannel "belmont-stakes"
+createChannel "melbourne-cup"
 
-# # Have any number of peers to join here. Third argument is PonyMSP or TobyMSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
+# Have any number of peers to join here. Third argument is PonyMSP or TobyMSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
 joinChannel "buttercup0.pony.example.com" "kentucky-derby" "PonyMSP" 1
 joinChannel "buttercup1.pony.example.com" "kentucky-derby" "PonyMSP" 0
 joinChannel "seabiscuit0.toby.example.com" "kentucky-derby" "TobyMSP" 1
@@ -112,6 +112,11 @@ joinChannel "buttercup0.pony.example.com" "belmont-stakes" "PonyMSP" 1
 joinChannel "buttercup1.pony.example.com" "belmont-stakes" "PonyMSP" 0
 joinChannel "seabiscuit0.toby.example.com" "belmont-stakes" "TobyMSP" 1
 joinChannel "seabiscuit1.toby.example.com" "belmont-stakes" "TobyMSP" 0
+
+joinChannel "buttercup0.pony.example.com" "melbourne-cup" "PonyMSP" 1
+joinChannel "buttercup1.pony.example.com" "melbourne-cup" "PonyMSP" 0
+joinChannel "seabiscuit0.toby.example.com" "melbourne-cup" "TobyMSP" 1
+joinChannel "seabiscuit1.toby.example.com" "melbourne-cup" "TobyMSP" 0
 
 # Install chaincode onto peers. Do not worry about channels here.
 installChaincode "buttercup0.pony.example.com" "splunk_cc" "PonyMSP" 1.0
