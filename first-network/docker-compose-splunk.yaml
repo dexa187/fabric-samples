@@ -39,8 +39,10 @@ services:
     networks:
       - byfn
     ports:
-    - "18000:8000"
-    - "18088:8088"
+      - "18000:8000"
+      - "18088:8088"
+    volumes:
+      - /sys:/sys:ro
 
   orderer.example.com:
     environment: 
