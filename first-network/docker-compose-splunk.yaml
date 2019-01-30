@@ -35,7 +35,7 @@ services:
     environment:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=changeme
-      - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/couchbase-add-on-for-splunk_102.tgz,http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/HyperLedger-Splunk.tgz
+      - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/HyperLedger-Splunk.tgz
     networks:
       - byfn
     ports:
