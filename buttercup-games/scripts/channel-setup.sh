@@ -128,4 +128,5 @@ installChaincode "seabiscuit1.toby.example.com" "splunk_cc" "TobyMSP" 1.0
 instantiateChaincode "seabiscuit0.toby.example.com" "kentucky-derby" "splunk_cc" "TobyMSP" 1.0
 instantiateChaincode "seabiscuit1.toby.example.com" "preakness-stakes" "splunk_cc" "TobyMSP" 1.0
 instantiateChaincode "buttercup0.pony.example.com" "belmont-stakes" "splunk_cc" "PonyMSP" 1.0
+instantiateChaincode "buttercup1.pony.example.com" "melbourne-cup" "splunk_cc" "PonyMSP" 1.0
 
