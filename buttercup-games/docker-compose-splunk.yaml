@@ -59,6 +59,26 @@ services:
       - byfn
     user: root
 
+  ledger-logger.example.com:
+    container_name: ledger-logger.example.com
+    build:
+      context: ./ledger-logger
+    environment:
+      - SPLUNK_HEC_URL=https://splunk.example.com:8088/services/collector
+      - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
+      - FABRIC_PEER=buttercup0.pony.example.com
+      - FABRIC_CHANNEL_NAME=melbourne-cup
+    volumes:
+      - ./crypto:/usr/src/app/crypto/
+    depends_on:
+      - orderer.example.com
+      - buttercup0.pony.example.com
+      - buttercup1.pony.example.com
+      - seabiscuit0.toby.example.com
+      - seabiscuit1.toby.example.com
+    networks:
+      - byfn
+
   orderer.example.com:
     environment: 
       <<: *default-environment

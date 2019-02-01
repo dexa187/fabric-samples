@@ -1,0 +1,78 @@
+# https://fabric-sdk-node.github.io/release-1.4/tutorial-network-config.html
+name: "Network"
+version: "1.0"
+
+channels:
+  melbourne-cup:
+    orderers:
+      - orderer.example.com
+    peers:
+      buttercup0.pony.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      seabiscuit0.toby.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+organizations:
+  Pony:
+    mspid: PonyMSP
+    peers:
+      - buttercup0.pony.example.com
+
+  Toby:
+    mspid: TobyMSP
+    peers:
+      - seabiscuit0.toby.example.com
+
+orderers:
+  orderer.example.com:
+    url: grpcs://orderer.example.com:7050
+    grpcOptions:
+      ssl-target-name-override: orderer.example.com
+      grpc-max-send-message-length: 4194304
+    tlsCACerts:
+      path: crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+
+peers:
+  buttercup0.pony.example.com:
+    url: grpcs://buttercup0.pony.example.com:7051
+    grpcOptions:
+      ssl-target-name-override: buttercup0.pony.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/msp/tlscacerts/tlsca.pony.example.com-cert.pem
+
+  seabiscuit0.toby.example.com:
+    url: grpcs://seabiscuit0.toby.example.com:8051
+    grpcOptions:
+      ssl-target-name-override: seabiscuit0.toby.example.com
+    tlsCACerts:
+      path: crypto/peerOrganizations/toby.example.com/peers/seabiscuit0.toby.example.com/msp/tlscacerts/tlsca.toby.example.com-cert.pem
+
+# certificateAuthorities:
+#   ca-pony:
+#     url: https://localhost:7054
+#     httpOptions:
+#       verify: false
+#     tlsCACerts:
+#       path: test/fixtures/channel/crypto-config/peerOrganizations/pony.example.com/ca/pony.example.com-cert.pem
+#     registrar:
+#       - enrollId: admin
+#         enrollSecret: adminpw
+#     caName: capony
+
+#   ca-toby:
+#     url: https://localhost:8054
+#     httpOptions:
+#       verify: false
+#     tlsCACerts:
+#       path: test/fixtures/channel/crypto-config/peerOrganizations/toby.example.com/ca/toby.example.com-cert.pem
+#     registrar:
+#       - enrollId: admin
+#         enrollSecret: adminpw
+#     caName: catoby
