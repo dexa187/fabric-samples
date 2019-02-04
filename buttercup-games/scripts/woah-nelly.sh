@@ -2,11 +2,11 @@
 
 ## Runs a few invokes against a channel to show transactions moving through.
 
-CHANNEL_NAME="melbourne-cup"
+CHANNEL_NAME="haunt"
 CC_NAME="splunk_cc"
 OP="+"
 
-echo "================= Welcome to the Melbourne Cup, mate!!!! ================="
+echo "================= Welcome to Haunt, mate!!!! ================="
 cat << "EOF"
        (\-"""-/)
         |     |

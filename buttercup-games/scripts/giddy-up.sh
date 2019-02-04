@@ -2,11 +2,11 @@
 
 ## Runs a few invokes against a channel to show transactions moving through.
 
-CHANNEL_NAME="kentucky-derby"
+CHANNEL_NAME="buttercup-rocks"
 CC_NAME="splunk_cc"
 OP="+"
 
-echo "================= Welcome to the Kentucky Derby!!!! ================="
+echo "================= Buttercup Rocks!!!! ================="
 cat << "EOF"
                             _(\_/) 
                           ,((((^`\
