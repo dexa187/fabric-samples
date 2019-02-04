@@ -24,8 +24,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Pony
-    Domain: pony.example.com
+  - Name: Buttercup
+    Domain: buttercup.example.com
     EnableNodeOUs: true
     # ---------------------------------------------------------------------------
     # "Specs"
@@ -63,7 +63,7 @@ PeerOrgs:
     Template:
       Count: 2
       # Start: 5
-      Hostname: buttercup{{.Index}} # default
+      Hostname: peer{{.Index}} # default
     # ---------------------------------------------------------------------------
     # "Users"
     # ---------------------------------------------------------------------------
@@ -75,12 +75,12 @@ PeerOrgs:
   # Org2: See "Org1" for full specification
   # ---------------------------------------------------------------------------
 
-  - Name: Toby
-    Domain: toby.example.com
+  - Name: Popstar 
+    Domain: popstar.example.com
     EnableNodeOUs: true
     Template:
       Count: 2
-      Hostname: seabiscuit{{.Index}}
+      Hostname: peer{{.Index}}
     Users:
       Count: 1
 

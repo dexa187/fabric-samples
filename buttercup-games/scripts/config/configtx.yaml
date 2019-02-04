@@ -44,12 +44,12 @@ Organizations:
     - &Pony
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: PonyMSP 
+        Name: ButtercupMSP 
 
         # ID to load the MSP definition as
-        ID: PonyMSP
+        ID: ButtercupMSP
 
-        MSPDir: ../../crypto/peerOrganizations/pony.example.com/msp
+        MSPDir: ../../crypto/peerOrganizations/buttercup.example.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -57,31 +57,31 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('PonyMSP.admin', 'PonyMSP.peer', 'PonyMSP.client')"
+                Rule: "OR('ButtercupMSP.admin', 'ButtercupMSP.peer', 'ButtercupMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('PonyMSP.admin', 'PonyMSP.client')"
+                Rule: "OR('ButtercupMSP.admin', 'ButtercupMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('PonyMSP.admin')"
+                Rule: "OR('ButtercupMSP.admin')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: buttercup0.pony.example.com
+            - Host: peer0.buttercup.example.com
               Port: 7051
 
     - &Toby
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: TobyMSP
+        Name: PopstarMSP
 
         # ID to load the MSP definition as
-        ID: TobyMSP
+        ID: PopstarMSP
 
-        MSPDir: ../../crypto/peerOrganizations/toby.example.com/msp
+        MSPDir: ../../crypto/peerOrganizations/popstar.example.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -89,19 +89,19 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('TobyMSP.admin', 'TobyMSP.peer', 'TobyMSP.client')"
+                Rule: "OR('PopstarMSP.admin', 'PopstarMSP.peer', 'PopstarMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('TobyMSP.admin', 'TobyMSP.client')"
+                Rule: "OR('PopstarMSP.admin', 'PopstarMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('TobyMSP.admin')"
+                Rule: "OR('PopstarMSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: seabiscuit0.toby.example.com
+            - Host: peer0.popstar.example.com
               Port: 7051
 
 ################################################################################

@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-set -ex
+set -e
 
 export FABRIC_CFG_PATH=${PWD}/config
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
@@ -87,46 +87,61 @@ function instantiateChaincode() {
 	peer chaincode instantiate -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED \
 		--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 		-C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args": []}' \
-		-v $VERSION -P "OR ('PonyMSP.member','TobyMSP.member')"
+		-v $VERSION -P "OR ('ButtercupMSP.member','PopstarMSP.member')"
 }
 
 
 # Create any number of channels here with new names.
-createChannel "kentucky-derby"
-createChannel "preakness-stakes"
-createChannel "belmont-stakes"
-createChannel "melbourne-cup"
+createChannel "buttercup-rocks"
+createChannel "haunt"
+createChannel "crisis-uprising"
+createChannel "containment-apocalyse"
+createChannel "rage-trilogy"
+createChannel "chaos-oath"
 
-# Have any number of peers to join here. Third argument is PonyMSP or TobyMSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
-joinChannel "buttercup0.pony.example.com" "kentucky-derby" "PonyMSP" 1
-joinChannel "buttercup1.pony.example.com" "kentucky-derby" "PonyMSP" 0
-joinChannel "seabiscuit0.toby.example.com" "kentucky-derby" "TobyMSP" 1
-joinChannel "seabiscuit1.toby.example.com" "kentucky-derby" "TobyMSP" 0
+# Have any number of peers to join here. Third argument is ButtercupMSP or PopstarMSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
+joinChannel "peer0.buttercup.example.com" "buttercup-rocks" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "buttercup-rocks" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "buttercup-rocks" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "buttercup-rocks" "PopstarMSP" 0
 
-joinChannel "buttercup0.pony.example.com" "preakness-stakes" "PonyMSP" 1
-joinChannel "buttercup1.pony.example.com" "preakness-stakes" "PonyMSP" 0
-joinChannel "seabiscuit0.toby.example.com" "preakness-stakes" "TobyMSP" 1
-joinChannel "seabiscuit1.toby.example.com" "preakness-stakes" "TobyMSP" 0
+joinChannel "peer0.buttercup.example.com" "haunt" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "haunt" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "haunt" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "haunt" "PopstarMSP" 0
 
-joinChannel "buttercup0.pony.example.com" "belmont-stakes" "PonyMSP" 1
-joinChannel "buttercup1.pony.example.com" "belmont-stakes" "PonyMSP" 0
-joinChannel "seabiscuit0.toby.example.com" "belmont-stakes" "TobyMSP" 1
-joinChannel "seabiscuit1.toby.example.com" "belmont-stakes" "TobyMSP" 0
+joinChannel "peer0.buttercup.example.com" "crisis-uprising" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "crisis-uprising" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "crisis-uprising" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "crisis-uprising" "PopstarMSP" 0
 
-joinChannel "buttercup0.pony.example.com" "melbourne-cup" "PonyMSP" 1
-joinChannel "buttercup1.pony.example.com" "melbourne-cup" "PonyMSP" 0
-joinChannel "seabiscuit0.toby.example.com" "melbourne-cup" "TobyMSP" 1
-joinChannel "seabiscuit1.toby.example.com" "melbourne-cup" "TobyMSP" 0
+joinChannel "peer0.buttercup.example.com" "containment-apocalyse" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "containment-apocalyse" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "containment-apocalyse" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "containment-apocalyse" "PopstarMSP" 0
+
+joinChannel "peer0.buttercup.example.com" "rage-trilogy" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "rage-trilogy" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "rage-trilogy" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "rage-trilogy" "PopstarMSP" 0
+
+joinChannel "peer0.buttercup.example.com" "chaos-oath" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "chaos-oath" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "chaos-oath" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "chaos-oath" "PopstarMSP" 0
+
 
 # Install chaincode onto peers. Do not worry about channels here.
-installChaincode "buttercup0.pony.example.com" "splunk_cc" "PonyMSP" 1.0
-installChaincode "buttercup1.pony.example.com" "splunk_cc" "PonyMSP" 1.0
-installChaincode "seabiscuit0.toby.example.com" "splunk_cc" "TobyMSP" 1.0
-installChaincode "seabiscuit1.toby.example.com" "splunk_cc" "TobyMSP" 1.0
+installChaincode "peer0.buttercup.example.com" "splunk_cc" "ButtercupMSP" 1.0
+installChaincode "peer1.buttercup.example.com" "splunk_cc" "ButtercupMSP" 1.0
+installChaincode "peer0.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
+installChaincode "peer1.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
 
 # Instantiate chaincode on one ore more peers in each channel.
-instantiateChaincode "seabiscuit0.toby.example.com" "kentucky-derby" "splunk_cc" "TobyMSP" 1.0
-instantiateChaincode "seabiscuit1.toby.example.com" "preakness-stakes" "splunk_cc" "TobyMSP" 1.0
-instantiateChaincode "buttercup0.pony.example.com" "belmont-stakes" "splunk_cc" "PonyMSP" 1.0
-instantiateChaincode "buttercup1.pony.example.com" "melbourne-cup" "splunk_cc" "PonyMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "buttercup-rocks" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer1.popstar.example.com" "haunt" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.buttercup.example.com" "crisis-uprising" "splunk_cc" "ButtercupMSP" 1.0
+instantiateChaincode "peer1.buttercup.example.com" "containment-apocalyse" "splunk_cc" "ButtercupMSP" 1.0
+instantiateChaincode "peer1.buttercup.example.com" "rage-trilogy" "splunk_cc" "ButtercupMSP" 1.0
+instantiateChaincode "peer1.buttercup.example.com" "chaos-oath" "splunk_cc" "ButtercupMSP" 1.0
 

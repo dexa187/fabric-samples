@@ -7,10 +7,10 @@ version: '2'
 
 volumes:
   orderer.example.com:
-  buttercup0.pony.example.com:
-  buttercup1.pony.example.com:
-  seabiscuit0.toby.example.com:
-  seabiscuit1.toby.example.com:
+  peer0.buttercup.example.com:
+  peer1.buttercup.example.com:
+  peer0.popstar.example.com:
+  peer1.popstar.example.com:
 
 networks:
   byfn:
@@ -25,35 +25,35 @@ services:
     networks:
       - byfn
 
-  buttercup0.pony.example.com:
-    container_name: buttercup0.pony.example.com
+  peer0.buttercup.example.com:
+    container_name: peer0.buttercup.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: buttercup0.pony.example.com
+      service: peer0.buttercup.example.com
     networks:
       - byfn
 
-  buttercup1.pony.example.com:
-    container_name: buttercup1.pony.example.com
+  peer1.buttercup.example.com:
+    container_name: peer1.buttercup.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: buttercup1.pony.example.com
+      service: peer1.buttercup.example.com
     networks:
       - byfn
 
-  seabiscuit0.toby.example.com:
-    container_name: seabiscuit0.toby.example.com
+  peer0.popstar.example.com:
+    container_name: peer0.popstar.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: seabiscuit0.toby.example.com
+      service: peer0.popstar.example.com
     networks:
       - byfn
 
-  seabiscuit1.toby.example.com:
-    container_name: seabiscuit1.toby.example.com
+  peer1.popstar.example.com:
+    container_name: peer1.popstar.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: seabiscuit1.toby.example.com
+      service: peer1.popstar.example.com
     networks:
       - byfn
 
@@ -68,13 +68,13 @@ services:
       #- FABRIC_LOGGING_SPEC=DEBUG
       - FABRIC_LOGGING_SPEC=INFO
       - CORE_PEER_ID=cli
-      - CORE_PEER_ADDRESS=buttercup0.pony.example.com:7051
-      - CORE_PEER_LOCALMSPID=PonyMSP
+      - CORE_PEER_ADDRESS=peer0.buttercup.example.com:7051
+      - CORE_PEER_LOCALMSPID=ButtercupMSP
       - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/pony.example.com/users/Admin@pony.example.com/msp
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buttercup.example.com/peers/peer0.buttercup.example.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buttercup.example.com/peers/peer0.buttercup.example.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buttercup.example.com/peers/peer0.buttercup.example.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buttercup.example.com/users/Admin@buttercup.example.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
@@ -85,9 +85,9 @@ services:
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - orderer.example.com
-      - buttercup0.pony.example.com
-      - buttercup1.pony.example.com
-      - seabiscuit0.toby.example.com
-      - seabiscuit1.toby.example.com
+      - peer0.buttercup.example.com
+      - peer1.buttercup.example.com
+      - peer0.popstar.example.com
+      - peer1.popstar.example.com
     networks:
       - byfn

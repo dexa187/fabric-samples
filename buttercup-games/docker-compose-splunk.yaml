@@ -62,20 +62,22 @@ services:
   ledger-logger.example.com:
     container_name: ledger-logger.example.com
     build:
+      dockerfile: Dockerfile
       context: ./ledger-logger
+    image: ledger-logger:latest
     environment:
       - SPLUNK_HEC_URL=https://splunk.example.com:8088/services/collector
       - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
-      - FABRIC_PEER=buttercup0.pony.example.com
-      - FABRIC_CHANNEL_NAME=melbourne-cup
+      - FABRIC_PEER=peer0.buttercup.example.com
+      - FABRIC_CHANNEL_LIST=buttercup-rocks
     volumes:
       - ./crypto:/usr/src/app/crypto/
     depends_on:
       - orderer.example.com
-      - buttercup0.pony.example.com
-      - buttercup1.pony.example.com
-      - seabiscuit0.toby.example.com
-      - seabiscuit1.toby.example.com
+      - peer0.buttercup.example.com
+      - peer1.buttercup.example.com
+      - peer0.popstar.example.com
+      - peer1.popstar.example.com
     networks:
       - byfn
 
@@ -87,34 +89,34 @@ services:
     depends_on:
       - splunk.example.com
 
-  buttercup0.pony.example.com:
+  peer0.buttercup.example.com:
     environment: 
       <<: *default-environment
-      CORE_METRICS_STATSD_PREFIX: buttercup0.pony.example.com
+      CORE_METRICS_STATSD_PREFIX: peer0.buttercup.example.com
     logging: *default-logging
     depends_on:
       - splunk.example.com
 
-  buttercup1.pony.example.com:
+  peer1.buttercup.example.com:
     environment: 
       <<: *default-environment
-      CORE_METRICS_STATSD_PREFIX: buttercup1.pony.example.com
+      CORE_METRICS_STATSD_PREFIX: peer1.buttercup.example.com
     logging: *default-logging
     depends_on:
       - splunk.example.com
 
-  seabiscuit0.toby.example.com:
+  peer0.popstar.example.com:
     environment : 
       <<: *default-environment  
-      CORE_METRICS_STATSD_PREFIX: seabiscuit0.toby.example.com
+      CORE_METRICS_STATSD_PREFIX: peer0.popstar.example.com
     logging: *default-logging
     depends_on:
       - splunk.example.com
 
-  seabiscuit1.toby.example.com:
+  peer1.popstar.example.com:
     environment: 
       <<: *default-environment  
-      CORE_METRICS_STATSD_PREFIX: seabiscuit1.toby.example.com
+      CORE_METRICS_STATSD_PREFIX: peer1.popstar.example.com
     logging: *default-logging
     depends_on:
       - splunk.example.com

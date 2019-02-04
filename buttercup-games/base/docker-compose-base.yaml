@@ -34,83 +34,83 @@ services:
     ports:
       - 7050:7050
 
-  buttercup0.pony.example.com:
-    container_name: buttercup0.pony.example.com
+  peer0.buttercup.example.com:
+    container_name: peer0.buttercup.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=buttercup0.pony.example.com
-      - CORE_PEER_ADDRESS=buttercup0.pony.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=buttercup1.pony.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=buttercup0.pony.example.com:7051
-      - CORE_PEER_LOCALMSPID=PonyMSP
+      - CORE_PEER_ID=peer0.buttercup.example.com
+      - CORE_PEER_ADDRESS=peer0.buttercup.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.buttercup.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.buttercup.example.com:7051
+      - CORE_PEER_LOCALMSPID=ButtercupMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup0.pony.example.com/tls:/etc/hyperledger/fabric/tls
-        - buttercup0.pony.example.com:/var/hyperledger/production
+        - ../crypto/peerOrganizations/buttercup.example.com/peers/peer0.buttercup.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/buttercup.example.com/peers/peer0.buttercup.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.buttercup.example.com:/var/hyperledger/production
     ports:
       - 7051:7051
       - 7053:7053
 
-  buttercup1.pony.example.com:
-    container_name: buttercup1.pony.example.com
+  peer1.buttercup.example.com:
+    container_name: peer1.buttercup.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=buttercup1.pony.example.com
-      - CORE_PEER_ADDRESS=buttercup1.pony.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=buttercup1.pony.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=buttercup0.pony.example.com:7051
-      - CORE_PEER_LOCALMSPID=PonyMSP
+      - CORE_PEER_ID=peer1.buttercup.example.com
+      - CORE_PEER_ADDRESS=peer1.buttercup.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.buttercup.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.buttercup.example.com:7051
+      - CORE_PEER_LOCALMSPID=ButtercupMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup1.pony.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto/peerOrganizations/pony.example.com/peers/buttercup1.pony.example.com/tls:/etc/hyperledger/fabric/tls
-        - buttercup1.pony.example.com:/var/hyperledger/production
+        - ../crypto/peerOrganizations/buttercup.example.com/peers/peer1.buttercup.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/buttercup.example.com/peers/peer1.buttercup.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.buttercup.example.com:/var/hyperledger/production
 
     ports:
       - 8051:7051
       - 8053:7053
 
-  seabiscuit0.toby.example.com:
-    container_name: seabiscuit0.toby.example.com
+  peer0.popstar.example.com:
+    container_name: peer0.popstar.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=seabiscuit0.toby.example.com
-      - CORE_PEER_ADDRESS=seabiscuit0.toby.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=seabiscuit0.toby.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=seabiscuit1.toby.example.com:7051
-      - CORE_PEER_LOCALMSPID=TobyMSP
+      - CORE_PEER_ID=peer0.popstar.example.com
+      - CORE_PEER_ADDRESS=peer0.popstar.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.popstar.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.popstar.example.com:7051
+      - CORE_PEER_LOCALMSPID=PopstarMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit0.toby.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit0.toby.example.com/tls:/etc/hyperledger/fabric/tls
-        - seabiscuit0.toby.example.com:/var/hyperledger/production
+        - ../crypto/peerOrganizations/popstar.example.com/peers/peer0.popstar.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/popstar.example.com/peers/peer0.popstar.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.popstar.example.com:/var/hyperledger/production
     ports:
       - 9051:7051
       - 9053:7053
 
-  seabiscuit1.toby.example.com:
-    container_name: seabiscuit1.toby.example.com
+  peer1.popstar.example.com:
+    container_name: peer1.popstar.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=seabiscuit1.toby.example.com
-      - CORE_PEER_ADDRESS=seabiscuit1.toby.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=seabiscuit1.toby.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=seabiscuit0.toby.example.com:7051
-      - CORE_PEER_LOCALMSPID=TobyMSP
+      - CORE_PEER_ID=peer1.popstar.example.com
+      - CORE_PEER_ADDRESS=peer1.popstar.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.popstar.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.popstar.example.com:7051
+      - CORE_PEER_LOCALMSPID=PopstarMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit1.toby.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto/peerOrganizations/toby.example.com/peers/seabiscuit1.toby.example.com/tls:/etc/hyperledger/fabric/tls
-        - seabiscuit1.toby.example.com:/var/hyperledger/production
+        - ../crypto/peerOrganizations/popstar.example.com/peers/peer1.popstar.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto/peerOrganizations/popstar.example.com/peers/peer1.popstar.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.popstar.example.com:/var/hyperledger/production
     ports:
       - 10051:7051
       - 10053:7053
