@@ -69,7 +69,6 @@ services:
       - SPLUNK_HEC_URL=https://splunk.example.com:8088/services/collector
       - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
       - FABRIC_PEER=peer0.buttercup.example.com
-      - FABRIC_CHANNEL_LIST=buttercup-rocks
     volumes:
       - ./crypto:/usr/src/app/crypto/
     depends_on:

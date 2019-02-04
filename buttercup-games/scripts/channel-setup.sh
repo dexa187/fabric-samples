@@ -130,7 +130,6 @@ joinChannel "peer1.buttercup.example.com" "chaos-oath" "ButtercupMSP" 0
 joinChannel "peer0.popstar.example.com" "chaos-oath" "PopstarMSP" 1
 joinChannel "peer1.popstar.example.com" "chaos-oath" "PopstarMSP" 0
 
-
 # Install chaincode onto peers. Do not worry about channels here.
 installChaincode "peer0.buttercup.example.com" "splunk_cc" "ButtercupMSP" 1.0
 installChaincode "peer1.buttercup.example.com" "splunk_cc" "ButtercupMSP" 1.0
@@ -145,3 +144,10 @@ instantiateChaincode "peer1.buttercup.example.com" "containment-apocalyse" "splu
 instantiateChaincode "peer1.buttercup.example.com" "rage-trilogy" "splunk_cc" "ButtercupMSP" 1.0
 instantiateChaincode "peer1.buttercup.example.com" "chaos-oath" "splunk_cc" "ButtercupMSP" 1.0
 
+# These set up channel logging to Splunk
+curl ledger-logger.example.com:8080/channels/buttercup-rocks
+curl ledger-logger.example.com:8080/channels/haunt
+curl ledger-logger.example.com:8080/channels/crisis-uprising
+curl ledger-logger.example.com:8080/channels/containment-apocalyse
+curl ledger-logger.example.com:8080/channels/rage-trilogy
+curl ledger-logger.example.com:8080/channels/chaos-oath

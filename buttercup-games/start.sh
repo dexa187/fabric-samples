@@ -18,7 +18,7 @@ docker-compose -f docker-compose-cli.yaml \
 			   -f docker-compose-couch.yaml \
 			   -f docker-compose-splunk.yaml \
 			   -f docker-compose-splunk-couch.yaml \
-			   -f docker-compose-splunk-kafka.yaml up -d
+			   -f docker-compose-splunk-kafka.yaml up -d --build
 
 echo "Waiting 15 seconds for containers to start..."
 sleep 15

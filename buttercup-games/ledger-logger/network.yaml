@@ -17,6 +17,76 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
+  haunt:
+    orderers:
+      - orderer.example.com
+    peers:
+      peer0.buttercup.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.popstar.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+  crisis-uprising:
+    orderers:
+      - orderer.example.com
+    peers:
+      peer0.buttercup.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.popstar.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+  containment-apocalyse:
+    orderers:
+      - orderer.example.com
+    peers:
+      peer0.buttercup.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.popstar.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+  rage-trilogy:
+    orderers:
+      - orderer.example.com
+    peers:
+      peer0.buttercup.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.popstar.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+  chaos-oath:
+    orderers:
+      - orderer.example.com
+    peers:
+      peer0.buttercup.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.popstar.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
 
 organizations:
   Pony:
