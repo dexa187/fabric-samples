@@ -41,7 +41,7 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-    - &Pony
+    - &Buttercup
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
         Name: ButtercupMSP 
@@ -73,7 +73,7 @@ Organizations:
             - Host: peer0.buttercup.example.com
               Port: 7051
 
-    - &Toby
+    - &Popstar
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
         Name: PopstarMSP
@@ -310,15 +310,15 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Pony
-                    - *Toby
+                    - *Buttercup
+                    - *Popstar
     TwoOrgsChannel:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Pony
-                - *Toby
+                - *Buttercup
+                - *Popstar
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -344,5 +344,5 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                - *Pony
-                - *Toby
+                    - *Buttercup
+                    - *Popstar

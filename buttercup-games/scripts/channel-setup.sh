@@ -92,7 +92,7 @@ function instantiateChaincode() {
 
 
 # Create any number of channels here with new names.
-createChannel "buttercup-rocks"
+createChannel "buttercup-go"
 createChannel "haunt"
 createChannel "crisis-uprising"
 createChannel "containment-apocalyse"
@@ -100,10 +100,10 @@ createChannel "rage-trilogy"
 createChannel "chaos-oath"
 
 # Have any number of peers to join here. Third argument is ButtercupMSP or PopstarMSP, last arg is 1 or 0 for anchor peer or not. Can only have 1 anchor peer per org per channel.
-joinChannel "peer0.buttercup.example.com" "buttercup-rocks" "ButtercupMSP" 1
-joinChannel "peer1.buttercup.example.com" "buttercup-rocks" "ButtercupMSP" 0
-joinChannel "peer0.popstar.example.com" "buttercup-rocks" "PopstarMSP" 1
-joinChannel "peer1.popstar.example.com" "buttercup-rocks" "PopstarMSP" 0
+joinChannel "peer0.buttercup.example.com" "buttercup-go" "ButtercupMSP" 1
+joinChannel "peer1.buttercup.example.com" "buttercup-go" "ButtercupMSP" 0
+joinChannel "peer0.popstar.example.com" "buttercup-go" "PopstarMSP" 1
+joinChannel "peer1.popstar.example.com" "buttercup-go" "PopstarMSP" 0
 
 joinChannel "peer0.buttercup.example.com" "haunt" "ButtercupMSP" 1
 joinChannel "peer1.buttercup.example.com" "haunt" "ButtercupMSP" 0
@@ -137,7 +137,7 @@ installChaincode "peer0.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
 installChaincode "peer1.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
 
 # Instantiate chaincode on one ore more peers in each channel.
-instantiateChaincode "peer0.popstar.example.com" "buttercup-rocks" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "buttercup-go" "splunk_cc" "PopstarMSP" 1.0
 instantiateChaincode "peer1.popstar.example.com" "haunt" "splunk_cc" "PopstarMSP" 1.0
 instantiateChaincode "peer0.buttercup.example.com" "crisis-uprising" "splunk_cc" "ButtercupMSP" 1.0
 instantiateChaincode "peer1.buttercup.example.com" "containment-apocalyse" "splunk_cc" "ButtercupMSP" 1.0
@@ -145,7 +145,7 @@ instantiateChaincode "peer1.buttercup.example.com" "rage-trilogy" "splunk_cc" "B
 instantiateChaincode "peer1.buttercup.example.com" "chaos-oath" "splunk_cc" "ButtercupMSP" 1.0
 
 # These set up channel logging to Splunk
-curl ledger-logger.example.com:8080/channels/buttercup-rocks
+curl ledger-logger.example.com:8080/channels/buttercup-go
 curl ledger-logger.example.com:8080/channels/haunt
 curl ledger-logger.example.com:8080/channels/crisis-uprising
 curl ledger-logger.example.com:8080/channels/containment-apocalyse
