@@ -36,7 +36,7 @@ services:
     environment:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=changeme
-      - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/fabric/${BRANCH}/splunk-hyperledger-fabric.tgz
+      - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/status-indicator-custom-visualization_130.tgz,http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/fabric/${BRANCH}/splunk-hyperledger-fabric.tgz
     networks:
       - byfn
     ports:

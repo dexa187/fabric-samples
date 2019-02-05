@@ -2,7 +2,7 @@
 
 ## Runs a few invokes against a channel to show transactions moving through.
 
-CHANNEL_NAME="buttercup-rocks"
+CHANNEL_NAME="buttercup-go"
 CC_NAME="splunk_cc"
 OP="+"
 
