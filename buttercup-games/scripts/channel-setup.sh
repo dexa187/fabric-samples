@@ -136,13 +136,13 @@ installChaincode "peer1.buttercup.example.com" "splunk_cc" "ButtercupMSP" 1.0
 installChaincode "peer0.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
 installChaincode "peer1.popstar.example.com" "splunk_cc" "PopstarMSP" 1.0
 
-# Instantiate chaincode on one ore more peers in each channel.
+# Instantiate chaincode on each channel.
 instantiateChaincode "peer0.popstar.example.com" "buttercup-go" "splunk_cc" "PopstarMSP" 1.0
-instantiateChaincode "peer1.popstar.example.com" "haunt" "splunk_cc" "PopstarMSP" 1.0
-instantiateChaincode "peer0.buttercup.example.com" "crisis-uprising" "splunk_cc" "ButtercupMSP" 1.0
-instantiateChaincode "peer1.buttercup.example.com" "containment-apocalyse" "splunk_cc" "ButtercupMSP" 1.0
-instantiateChaincode "peer1.buttercup.example.com" "rage-trilogy" "splunk_cc" "ButtercupMSP" 1.0
-instantiateChaincode "peer1.buttercup.example.com" "chaos-oath" "splunk_cc" "ButtercupMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "haunt" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "crisis-uprising" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "containment-apocalyse" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "rage-trilogy" "splunk_cc" "PopstarMSP" 1.0
+instantiateChaincode "peer0.popstar.example.com" "chaos-oath" "splunk_cc" "PopstarMSP" 1.0
 
 # These set up channel logging to Splunk
 curl ledger-logger.example.com:8080/channels/buttercup-go

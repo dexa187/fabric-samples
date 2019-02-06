@@ -3,7 +3,7 @@ name: "Network"
 version: "1.0"
 
 channels:
-  buttercup-rocks:
+  buttercup-go:
     orderers:
       - orderer.example.com
     peers:
