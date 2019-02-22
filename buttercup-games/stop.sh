@@ -27,9 +27,10 @@ function removeUnwantedImages() {
 
 docker-compose -f docker-compose-cli.yaml \
 			   -f docker-compose-couch.yaml \
+         -f docker-compose-kafka.yaml \
 			   -f docker-compose-splunk.yaml \
-			   -f docker-compose-splunk-couch.yaml \
-			   -f docker-compose-splunk-kafka.yaml \
+         -f docker-compose-splunk-kafka.yaml \
+         -f docker-compose-splunk-couch.yaml \
 			  down \
 			  --volumes --remove-orphans
 

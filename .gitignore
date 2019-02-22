@@ -9,3 +9,9 @@
 /config
 .DS_Store
 .project
+
+*.block
+*.tx
+buttercup-games/crypto
+node_modules
+package-lock.json
