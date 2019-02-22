@@ -10,7 +10,8 @@ Splunk will also be installed and accessible at `http://localhost:18000`. The us
 
 In order to initialize the Hyperledger Fabric network, exec into the docker CLI container (`docker exec -it cli /bin/bash`) and run the following commands:
 
-```cd scripts
+```
+cd scripts
 ./channel-setup.sh
 ./random-txns.sh
 ```
