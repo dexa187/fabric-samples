@@ -18,6 +18,8 @@ The `channel-setup.sh` script will initialize a few channels and install chainco
 
 Once the channels are set up and transactions are flowing, you can log into Splunk which will be installed and accessible at `http://localhost:18000`. The username and password will be `admin / changeme`. Splunk may take up to a minute to start up because it requires downloading the Hyperledger App, you can watch the progress using `docker logs -f splunk.example.com`.
 
+In order to shutdown the environment, run `./stop.sh`.
+
 Once logged into Splunk, you can view the Hyperledger Fabric dashboards inside the Hyperledger Splunk application.
 
 <img src="https://www.splunk.com/content/dam/splunk-blogs/images/2019/02/hyperledger-network-architecture.png" alt="Network Architecture and Channels" width="100%" />
@@ -31,6 +33,3 @@ The Infrastructure Health and Monitoring dashboard will give you an overview of 
 <img src="https://www.splunk.com/content/dam/splunk-blogs/images/2019/01/hyperledger-transaction-analytics.png" alt="Transaction Analytics" width="100%" />
 
 Our Transaction Analytics dashboard will give you real time visibility into the transactions being written on each ledger. In this dashboard, we’re blending ledger data sent from the peers with logs and metrics to give a holistic view of the network’s health.
-
-
-In order to shutdown the environment, run `./stop.sh`.
