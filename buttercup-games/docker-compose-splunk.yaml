@@ -59,18 +59,23 @@ services:
       - byfn
     user: root
 
-  ledger-logger.example.com:
-    container_name: ledger-logger.example.com
-    build:
-      dockerfile: Dockerfile
-      context: ./ledger-logger
-    image: ledger-logger:latest
+  febric-logger.example.com:
+    container_name: fabric-logger.example.com
+    image: splunkdlt/fabric-logger:latest
     environment:
-      - SPLUNK_HEC_URL=https://splunk.example.com:8088/services/collector
-      - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
+      - FABRIC_KEYFILE=${BUTTERCUP_ADMIN_PK}
+      - FABRIC_CERTFILE=crypto/peerOrganizations/buttercup.example.com/users/Admin@buttercup.example.com/msp/signcerts/Admin@buttercup.example.com-cert.pem
+      - FABRIC_MSP=ButtercupMSP
       - FABRIC_PEER=peer0.buttercup.example.com
+      - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
+      - SPLUNK_HOST=splunk.example.com
+      - SPLUNK_PORT=8088
+      - SPLUNK_INDEX=hyperledger_logs
+      - LOGGING_LOCATION=splunk
+      - NETWORK_CONFIG=network.yaml
     volumes:
       - ./crypto:/usr/src/app/crypto/
+      - ./network.yaml:/usr/src/app/network.yaml
     depends_on:
       - orderer.example.com
       - peer0.buttercup.example.com

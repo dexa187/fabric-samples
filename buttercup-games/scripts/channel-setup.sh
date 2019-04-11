@@ -145,9 +145,9 @@ instantiateChaincode "peer0.popstar.example.com" "rage-trilogy" "splunk_cc" "Pop
 instantiateChaincode "peer0.popstar.example.com" "chaos-oath" "splunk_cc" "PopstarMSP" 1.0
 
 # These set up channel logging to Splunk
-curl ledger-logger.example.com:8080/channels/buttercup-go
-curl ledger-logger.example.com:8080/channels/haunt
-curl ledger-logger.example.com:8080/channels/crisis-uprising
-curl ledger-logger.example.com:8080/channels/containment-apocalyse
-curl ledger-logger.example.com:8080/channels/rage-trilogy
-curl ledger-logger.example.com:8080/channels/chaos-oath
+curl fabric-logger.example.com:8080/channels/buttercup-go
+curl fabric-logger.example.com:8080/channels/haunt
+curl fabric-logger.example.com:8080/channels/crisis-uprising
+curl fabric-logger.example.com:8080/channels/containment-apocalyse
+curl fabric-logger.example.com:8080/channels/rage-trilogy
+curl fabric-logger.example.com:8080/channels/chaos-oath
