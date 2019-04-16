@@ -26,6 +26,8 @@ else
 	configtxgen -profile SampleDevModeKafka -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
 fi
 
+export BUTTERCUP_ADMIN_PK=$(find crypto/peerOrganizations/buttercup.example.com/users/Admin@buttercup.example.com/msp/keystore/ -type f)
+
 docker-compose -f docker-compose-cli.yaml \
 			   -f docker-compose-kafka.yaml \
 			   -f docker-compose-couch.yaml \
