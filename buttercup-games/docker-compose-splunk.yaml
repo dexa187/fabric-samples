@@ -66,6 +66,7 @@ services:
       - FABRIC_KEYFILE=${BUTTERCUP_ADMIN_PK}
       - FABRIC_CERTFILE=crypto/peerOrganizations/buttercup.example.com/users/Admin@buttercup.example.com/msp/signcerts/Admin@buttercup.example.com-cert.pem
       - FABRIC_MSP=ButtercupMSP
+      - FABRIC_LOGGER_USERNAME=admin
       - FABRIC_PEER=peer0.buttercup.example.com
       - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
       - SPLUNK_HOST=splunk.example.com
