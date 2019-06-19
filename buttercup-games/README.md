@@ -6,12 +6,28 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/install.html
 
 From there, you can simply run `./start.sh` in this directory which will spin up all the necessary containers in your local docker environment. 
 
-In order to initialize the Hyperledger Fabric network, exec into the docker CLI container (`docker exec -it cli /bin/bash`) and run the following commands:
+We've provided example `inputs.conf` and `indexes.conf` files for the demo as part of the Splunk App for Hyperledger Fabric. In order to use them, you'll need to execute some commands inside the Splunk docker container:
+```
+# First wait for the container to finish starting up.
+docker logs -f splunk.example.com
+# Next exec into it and load the .conf files.
+docker exec -it splunk.example.com /bin/bash
+$ cd /opt/splunk/etc/apps/splunk-hyperledger-fabric/default
+$ sudo mv inputs.conf.example inputs.conf
+$ sudo mv indexes.conf.example indexes.conf
+$ cd /opt/splunk/bin
+$ sudo ./splunk restart
+```
+
+In order to initialize the Hyperledger Fabric network, exec into the docker CLI container and run the following commands:
 
 ```
-cd scripts
-./channel-setup.sh
-./random-txns.sh
+docker exec -it cli /bin/bash
+$ cd scripts
+$ ./channel-setup.sh
+$ ./random-txns.sh
+# You can leave this running by starting:
+$ nohup ./random-txns.sh &
 ```
 
 The `channel-setup.sh` script will initialize a few channels and install chaincode on the peers. `random-txns.sh` will randomly generate 1 transaction per second, this can be increased by passing an argument into the script (i.e. `random-txns.sh 3` will run 3 transactions per second).

@@ -36,6 +36,7 @@ services:
     environment:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=changeme
+      - SPLUNK_HEC_TOKEN=00000000-0000-0000-0000-000000000000
       - SPLUNK_APPS_URL=http://s3.amazonaws.com/splunk-hyperledger/status-indicator-custom-visualization_130.tgz,http://s3.amazonaws.com/splunk-hyperledger/splunk-metrics-workspace_101.tgz,http://s3.amazonaws.com/splunk-hyperledger/fabric/${BRANCH}/splunk-hyperledger-fabric.tgz
     networks:
       - byfn
@@ -59,15 +60,15 @@ services:
       - byfn
     user: root
 
-  febric-logger.example.com:
+  fabric-logger.example.com:
     container_name: fabric-logger.example.com
-    image: splunkdlt/fabric-logger:latest
+    image: splunkdlt/fabric-logger:release-1.0.0
     environment:
       - FABRIC_KEYFILE=${BUTTERCUP_ADMIN_PK}
       - FABRIC_CERTFILE=crypto/peerOrganizations/buttercup.example.com/users/Admin@buttercup.example.com/msp/signcerts/Admin@buttercup.example.com-cert.pem
       - FABRIC_MSP=ButtercupMSP
-      - FABRIC_LOGGER_USERNAME=admin
       - FABRIC_PEER=peer0.buttercup.example.com
+      - FABRIC_LOGGER_USERNAME=fabric-logger
       - SPLUNK_HEC_TOKEN=12345678-ABCD-EFGH-IJKL-123456789012
       - SPLUNK_HOST=splunk.example.com
       - SPLUNK_PORT=8088
